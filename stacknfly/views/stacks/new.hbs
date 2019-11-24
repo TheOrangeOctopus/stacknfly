@@ -2,18 +2,18 @@
 <div class="main-wrapper">
   <div class="creation">
     <div class="stack-controllers">
-      <button class="btn-addStep" value="New Step"> Edit Stack Info </button>
-      <button class="btn-addStep" value="New Step"> New Step</button>
-      </div>
+      {{!-- <button class="btn-addStep" value="New Step"> Edit Stack Info </button>
+      <button class="btn-addStep" value="New Step"> New Step</button> --}}
+    </div>
     <div class="stack-mainInfo">
-      <p>Category:</p> <select name="new-category">
+      <p>Category:</p> <select name="new-category" id="new-category">
         <option value="learn">Learn</option>
         <option value="sport">Sport</option>
         <option value="culture">Culture</option>
         <option value="spare">Spare</option>
       </select>
 
-      <p>Time:</p> <select name="new-time">
+      <p>Time:</p> <select name="new-time" id="new-time">
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="4">4</option>
@@ -29,30 +29,42 @@
       <button class="btn-stackInfo" value="Add Main Info"> Add info </button>
 
     </div>
-    <div class="step-creation">
+    <div class="hidden step-creation">
       <p>Title:</p> <input type="text" name="title" id="step-title" value="" placeholder="Name your brand new Stack :)">
-      <p>Description:</p> <input type="text" name="description" id="step-description" value=""
+      <p>Instructions:</p> <input type="text" name="instructions" id="step-instructions" value=""
         placeholder="Short description of the stack">
-      <p>Image:</p> <input type="text" name="image" id="new-img" value=""
-        placeholder="Here will be an image upload field">
-
-      <p>Resource:</p> <select name="step-type">
+      <p>Add Resource:</p> <select name="source-type" class="source-type">
+        <option value="text" selected="selected">None</option>
         <option value="spotify">Spotify</option>
-        <option value="book">Youtube Embed Video</option>
+        <option value="youtube">Youtube Embed Video</option>
         <option value="book">Book</option>
-        <option value="pdf">Media file (PDF/JPG/PNG)</option>
+        <option value="file">Media file (PDF/JPG/PNG)</option>
         <option value="link">External Link</option>
-        <option value="text">Info</option>
       </select>
+
+      <fieldset class="hidden spotify source" form="stack-data" name="spotify">
+        Search by Artist:<input type="text" name="spotify-title" id="spotify-title" value="">
+        Search by Song:<input type="text" name="spotify" id="spotify-song" value="">
+      </fieldset>
+      
+      <fieldset class="hidden youtube source" form="stack-data" name="youtube">
+        Url:<input type="text" name="youtube-url" id="youtube-url" value="">
+      </fieldset>
+
+      <fieldset class="hidden book source" form="stack-data" name="book">
+        Search book:<input type="text" name="book-title" id="book-title" value="">
+      </fieldset>
+
+      <fieldset class="hidden link source" form="stack-data" name="link">
+        Url:<input type="text" name="link-url" id="link-url" value="">
+      </fieldset>
+
+      <fieldset class="hidden file source" form="stack-data" name="file">
+        Select file to upload:<input type="file" name="file-url" id="file-url" value="">
+      </fieldset>
+
       <button class="btn-addStep" value="Create Step"> Add Step </button>
     </div>
-
-
-
-
-
-
-
   </div>
 
   <div class="new-preview">
@@ -65,11 +77,13 @@
     <div id="new-stack-image">
       <img class="new-img-stack" src="/images/dummy.jpeg" alt="stack image">
     </div>
-    <div class="new-stack-steps">
+    <div class="new-stack-steps" id="stepsContainer">
       <div class="new-stack-step">
         <h2 class="new-step-title">Step title</h2>
         <p class="new-step-description"> Lorem ipsum dolor sit, amet consectetur adipisicing elit.</p>
-        <div id="step-source"></div>
+        <div class="step-source">
+
+        </div>
 
 
       </div>
@@ -93,6 +107,5 @@
       <input type="hidden" name="step-resource" id="step-resource" value="">
     </fieldset>
 
-    <button>POST</button>
   </form>
 </div>

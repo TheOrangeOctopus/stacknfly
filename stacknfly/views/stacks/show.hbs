@@ -1,2 +1,23 @@
-<h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
+<h1>La lista de los stacks</h1>
+<div class="all-stacks">
+{{#each stack}}
+<div class="one-stack">
+  <div class="top-preview-display">
+<h2>Title</h2> <img  class="category-logo" src="/images/graduation_cap-256.png">
+  </div>
+  <div class="image-preview-display">
+    <img src="/images/dummy.jpeg" alt="perro">
+  </div>
+  <div class="mid-preview-display"> 
+    {{!-- iconos de los sources de la experiencia y el tiempo --}}
+    <img  class="category-logo" src="/images/music.png">
+    <img  class="category-logo" src="/images/video.png">
+    <img  class="category-logo" src="/images/book.png"> 1h
+    </div>
+    <div class="bottom-preview-display">
+      <img  class="category-logo" src="/images/heart.png"> 20
+      <p> Created by: Fran </p>
+    </div>
+  </div>
+{{/each}}
+<div>

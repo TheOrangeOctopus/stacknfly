@@ -19,6 +19,7 @@ a {
 
 .hidden{
   display:none;
+  transition: 0.5s;
 }
 
 .main-wrapper{
@@ -43,15 +44,15 @@ a {
   align-items: left;
 
 .stack-controllers{
-  background-color:rgb(97, 181, 214)
+  background-color:rgba(61, 88, 99,0.1)
 }
 
 .stack-mainInfo{
-  background-color:rgb(43, 123, 155)
+  background-color:rgba(61, 88, 99,0.15)
 }
 
 .step-creation{
-  background-color:rgb(15, 91, 121)
+  background-color:rgba(61, 88, 99,0.3)
 }
 
 
@@ -62,4 +63,20 @@ a {
   display:flex;
   flex-direction: column;
   align-items: left;
+
+  .new-stack-step{
+    padding:1rem;
+    margin:1rem 0;
+    background-color: rgba(61, 88, 99,0.1);
+
+  }
+
+  .new-stack-step:hover{
+    cursor:  all-scroll;
+  }
+}
+
+.ghost{
+  opacity: .1;
+  background: rgba(61, 88, 99,1);
 }

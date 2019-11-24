@@ -7,9 +7,9 @@ const userSchema = new Schema({
   email: String,
   banned: {type: Boolean, deafult: false},
   rol: {type: String, enum: ["user", "admin", "mod"], default: "user"},
-  stacksCreated: String,
+  stacksCreated: Array,
   //stacksCreated: [{type: Schema.Types.ObjectId,ref: "Stack"}] ,
-  stacksSaved: String
+  stacksSaved: Array
   //stacksSaved: [{type: Schema.Types.ObjectId,ref: "Stack"}]
 }, {
   timestamps: {

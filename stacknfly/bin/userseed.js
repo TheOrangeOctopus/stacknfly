@@ -21,14 +21,14 @@ let users = [
     banned: false,
     rol: "user",
     
-    stacksSaved: "Architec mode",
+    stacksSaved: ["Architec mode"],
   },
   {
     username: "fran",
     password: "goiko",
     email: "franelcanario@gmail.com",
     banned: false,
-    stacksCreated: "Architec mode",
+    stacksCreated: ["Architec mode"],
     rol: "admin"
   },
   {
