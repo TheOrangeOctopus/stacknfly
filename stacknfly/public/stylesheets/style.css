@@ -1,8 +1,48 @@
+html {
+  font-size: 10px; }
+
+* {
+  box-sizing: border-box; }
+
 body {
-  padding: 50px;
+  padding: 0;
+  margin: 0;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; }
 
 a {
   color: #00B7FF; }
+
+.hidden {
+  display: none; }
+
+.main-wrapper {
+  width: 100%;
+  justify-content: space-around;
+  display: flex; }
+  .main-wrapper input, .main-wrapper select, .main-wrapper button {
+    padding: 1rem;
+    margin: 1rem 0;
+    font-size: 2rem; }
+  .main-wrapper p {
+    margin: 1rem 0;
+    font-size: 2rem; }
+
+.creation {
+  width: 45%;
+  display: flex;
+  flex-direction: column;
+  align-items: left; }
+  .creation .stack-controllers {
+    background-color: #61b5d6; }
+  .creation .stack-mainInfo {
+    background-color: #2b7b9b; }
+  .creation .step-creation {
+    background-color: #0f5b79; }
+
+.new-preview {
+  width: 45%;
+  display: flex;
+  flex-direction: column;
+  align-items: left; }
 
 /*# sourceMappingURL=style.css.map */

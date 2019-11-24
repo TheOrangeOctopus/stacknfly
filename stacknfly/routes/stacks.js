@@ -10,7 +10,8 @@ router.get('/:id', (req, res, next) => {
   Stacks.find({_id: req.params.id})
   .then((stackFound) =>{
     res.render('stacks/show', stackFound);
-  })
+  }).catch(next())
+  
 });
 
 //Valorar meter un project para quedarnos con lo que nos interesa del objeto
@@ -21,6 +22,11 @@ router.post('/filtered', (req, res, next) => {
     res.render('stacks/filtered', stacksFound);
   })
 });
+
+
+router.get('/new', (req, res, next)=>{
+  res.render('stacks/new')
+})
 
 //revisar si popular , la subida de imagenes y los steps que populen las sources
 router.post('/new', (req, res, next)=>{
@@ -33,7 +39,7 @@ router.post('/new', (req, res, next)=>{
     likesCounter: 0,
     createdBy: req.body.creator,
     status:"pending",
-    image:req.body.img.url,
+    image:req.body.img-url,
     steps:req.body.steps,
   })
 

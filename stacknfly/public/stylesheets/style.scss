@@ -1,8 +1,65 @@
+html{
+  font-size:10px;
+  
+}
+
+* {
+  box-sizing: border-box;
+}
+
 body {
-  padding: 50px;
+  padding: 0;
+  margin:0;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
+}
+
+.hidden{
+  display:none;
+}
+
+.main-wrapper{
+  width:100%;
+  justify-content: space-around;
+  display:flex;
+  input, select,button{
+    padding:1rem;
+    margin:1rem 0;
+    font-size:2rem;
+  }
+  p{
+    margin:1rem 0;
+    font-size:2rem;
+  }
+}
+
+.creation{
+  width:45%;
+  display:flex;
+  flex-direction: column;
+  align-items: left;
+
+.stack-controllers{
+  background-color:rgb(97, 181, 214)
+}
+
+.stack-mainInfo{
+  background-color:rgb(43, 123, 155)
+}
+
+.step-creation{
+  background-color:rgb(15, 91, 121)
+}
+
+
+}
+
+.new-preview{
+  width:45%;
+  display:flex;
+  flex-direction: column;
+  align-items: left;
 }

@@ -1,2 +1,98 @@
-<h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
+<h1>NEW STACK</h1>
+<div class="main-wrapper">
+  <div class="creation">
+    <div class="stack-controllers">
+      <button class="btn-addStep" value="New Step"> Edit Stack Info </button>
+      <button class="btn-addStep" value="New Step"> New Step</button>
+      </div>
+    <div class="stack-mainInfo">
+      <p>Category:</p> <select name="new-category">
+        <option value="learn">Learn</option>
+        <option value="sport">Sport</option>
+        <option value="culture">Culture</option>
+        <option value="spare">Spare</option>
+      </select>
+
+      <p>Time:</p> <select name="new-time">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="4">4</option>
+      </select>
+
+      <p>Title:</p> <input type="text" name="title" id="new-title" value="" placeholder="Name your brand new Stack :)">
+      <p>Description:</p> <input type="text" name="description" id="new-description" value=""
+        placeholder="Short description of the stack">
+      <p>Image:</p> <input type="text" name="image" id="new-img" value=""
+        placeholder="Here will be an image upload field">
+      <p>Tags:</p> <input type="text" name="tags" id="new-tags" value="" placeholder="Insert Tags divided by commas">
+
+      <button class="btn-stackInfo" value="Add Main Info"> Add info </button>
+
+    </div>
+    <div class="step-creation">
+      <p>Title:</p> <input type="text" name="title" id="step-title" value="" placeholder="Name your brand new Stack :)">
+      <p>Description:</p> <input type="text" name="description" id="step-description" value=""
+        placeholder="Short description of the stack">
+      <p>Image:</p> <input type="text" name="image" id="new-img" value=""
+        placeholder="Here will be an image upload field">
+
+      <p>Resource:</p> <select name="step-type">
+        <option value="spotify">Spotify</option>
+        <option value="book">Youtube Embed Video</option>
+        <option value="book">Book</option>
+        <option value="pdf">Media file (PDF/JPG/PNG)</option>
+        <option value="link">External Link</option>
+        <option value="text">Info</option>
+      </select>
+      <button class="btn-addStep" value="Create Step"> Add Step </button>
+    </div>
+
+
+
+
+
+
+
+  </div>
+
+  <div class="new-preview">
+    <div id="new-stack-header">
+      <h1 id="new-stack-title">Title</h1>
+      <p id="new-stack-description">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Beatae, numquam aperiam!
+        Reiciendis voluptatibus quibusdam consequuntur, repellat a cum quos illo quas deserunt omnis accusamus excepturi
+        doloremque aliquid ipsam quae dicta?</p>
+    </div>
+    <div id="new-stack-image">
+      <img class="new-img-stack" src="/images/dummy.jpeg" alt="stack image">
+    </div>
+    <div class="new-stack-steps">
+      <div class="new-stack-step">
+        <h2 class="new-step-title">Step title</h2>
+        <p class="new-step-description"> Lorem ipsum dolor sit, amet consectetur adipisicing elit.</p>
+        <div id="step-source"></div>
+
+
+      </div>
+    </div>
+
+
+  </div>
+  <form id="stack-data" class="hidden stack-data" action="/stacks/new" method="POST">
+    <input type="hidden" name="title" id="title" value="">
+    <input type="hidden" name="description" id="description" value="">
+    <input type="hidden" name="category" id="category" value="">
+    <input type="hidden" name="tags" id="tags" value="">
+    <input type="hidden" name="time" id="time" value="">
+    <input type="hidden" name="creator" id="creator" value="">
+    <input type="hidden" name="img-url" id="img-url" value="">
+
+    <fieldset class="hidden" form="stack-data" name="step">
+      {{!-- <legend>Personalia:</legend> --}}
+      <input type="hidden" name="step-title" id="step-title" value="">
+      <input type="hidden" name="step-description" id="step-description" value="">
+      <input type="hidden" name="step-resource" id="step-resource" value="">
+    </fieldset>
+
+    <button>POST</button>
+  </form>
+</div>
