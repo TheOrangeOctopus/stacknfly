@@ -8,6 +8,8 @@ let mainInfoDomEl = document.querySelector(".stack-mainInfo")
 let stepDomEl = document.querySelector(".step-creation")
 let sourceTypeDomEl = document.querySelector(".source-type")
 let sourcesDomEl = document.querySelectorAll(".source")
+let spotifySearchDomEl = document.querySelector(".spotify-search")
+
 
 
 //let previewFormImgUrlDomEl =  document.querySelector("#img-url")
@@ -169,9 +171,50 @@ sourceTypeDomEl.addEventListener("change", function (e) {
   document.querySelector(`.${sourceTypeDomEl.value}`).classList.toggle("hidden")
 })
 
+spotifySearchDomEl.addEventListener("click",function(e){
+
+  e.preventDefault()
+  spotifySearch()
+})
+
+/////// DRAG&DROP
+
 new Sortable(stepsContainer, {
   animation: 150,
   ghostClass: 'ghost'
 });
 
-////////////
+////////////AXIOS REQUESTS//////////
+
+function spotifySearch(){
+  let spotifyQuery = document.querySelector("#spotify-query").value
+  let spotifyResults = document.querySelector(".spotify-results-list")
+  axios.get(`http://localhost:3000/stacks/spotifyAPI/${spotifyQuery}`).then(songsFound => {
+   
+    spotifyResults.innerHTML = ""
+
+    songsFound.data.forEach((song)=>{
+      let {artist} = song
+      let {img} = song
+      
+      let songInfoDomel = document.createElement("li")
+      let titleDomel = document.createElement("p")
+      let artistDomel = document.createElement("p")
+      let imgDomel = document.createElement("img")
+      let instDomel = document.createElement("span")
+
+      songInfoDomel.appendChild(titleDomel)
+      songInfoDomel.appendChild(artistDomel)
+      songInfoDomel.appendChild(imgDomel)
+      songInfoDomel.appendChild(instDomel)
+
+      titleDomel.innerHTML=song.name
+      artistDomel.innerHTML=artist[0].name
+      imgDomel.setAttribute(`src`,`${img[0].url}`)
+      instDomel.innerHTML="Click to select this song"
+
+      spotifyResults.appendChild(songInfoDomel)
+    })
+  })
+
+}

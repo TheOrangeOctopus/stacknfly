@@ -58,3 +58,28 @@
 }
 
 
+.spotify-results-list{
+  list-style-type: none;
+  widows: 100%;
+  display:flex;
+  flex-direction: column;
+
+  li{
+    display:flex;
+    background-color:#ccc;
+    padding:0.5rem;
+    margin: 0.5rem 0;
+    transition:0.3s;
+
+    img{
+      width:5rem;
+      height:5rem;
+    }
+  }
+
+  li:hover{
+    cursor:pointer;
+    background-color: rgba(176, 201, 255, 0.5);
+    transition:0.3s;
+  }
+}

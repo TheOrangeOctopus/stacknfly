@@ -1,37 +1,36 @@
 const express = require('express');
-const router  = express.Router();
+const router = express.Router();
 const Stacks = require('../models/Stack');
 const spotifyApi = require("../configs/spotifyApi");
-
 
 router.get('/', (req, res, next) => {
   res.render('stacks/show');
 });
 
-// router.get('/:id', (req, res, next) => {
-//   Stacks.find({_id: req.params.id})
-//   .then((stackFound) =>{
-//     res.render('stacks/show', stackFound);
-//   }).catch(next())
-  
-// });
+router.get('/:id', (req, res, next) => {
+  Stacks.find({ _id: req.params.id })
+    .then((stackFound) => {
+      res.render('stacks/show', stackFound);
+    }).catch(next())
+
+});
 
 //Valorar meter un project para quedarnos con lo que nos interesa del objeto
 //y ver si hay que popular.
 router.post('/filtered', (req, res, next) => {
-  Stacks.filter({category: req.body.category},{timeInHours: req.body.time},{tags: {$contains : req.body.tags}})
-  .then((stacksFound) =>{
-    res.render('stacks/filtered', stacksFound);
-  })
+  Stacks.filter({ category: req.body.category }, { timeInHours: req.body.time }, { tags: { $contains: req.body.tags } })
+    .then((stacksFound) => {
+      res.render('stacks/filtered', stacksFound);
+    })
 });
 
 
-router.get('/new', (req, res, next)=>{
+router.get('/new', (req, res, next) => {
   res.render('stacks/new')
 })
 
 //revisar si popular , la subida de imagenes y los steps que populen las sources
-router.post('/new', (req, res, next)=>{
+router.post('/new', (req, res, next) => {
   let Stack = new Stacks({
     title: req.body.title,
     description: req.body.description,
@@ -40,9 +39,9 @@ router.post('/new', (req, res, next)=>{
     timeInHours: req.body.time,
     likesCounter: 0,
     createdBy: req.body.creator,
-    status:"pending",
-    image:req.body.img-url,
-    steps:req.body.steps,
+    status: "pending",
+    image: req.body.img - url,
+    steps: req.body.steps,
   })
 
   Stacks.save(Stack)
@@ -53,18 +52,34 @@ router.get('/', (req, res, next) => {
   res.render('stacks/show');
 });
 
-router.get('/show', (req, res, next) => {
-  res.render('stacks/show');
-});
 
 
-router.get('/spotifyAPI', (req, res, next)=>{
-  spotifyApi.searchTracks('Love')
-  .then(function(data) {
-    console.log(data.body);
-  }, function(err) {
-    console.error(err);
-  });
+router.get('/spotifyAPI/:query', (req, res, next) => {
+  let items = [];
+  console.log("Ha entrado en la ruta fuck the system: " + req.params.query)
+  spotifyApi.searchTracks(req.params.query,{ limit: 5})
+    .then((songs) => {
+      console.log(songs.body.tracks.items)
+      songs.body.tracks.items.forEach((song) => {
+        let fullSong = {
+          name: song.name,
+          id: song.id,
+          uri: song.uri,
+          artist: song.artists,
+          img: song.album.images
+        }
+        items.push(fullSong);
+      })
+    })
+    .then(() => {
+      res.json(items)
+    })
+
+    // res.render('/new',data);
+    .catch(err => {
+      console.error(err);
+
+    })
 
 })
 

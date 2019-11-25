@@ -19,6 +19,6 @@ spotifyApi
       console.log("Something went wrong when retrieving an access token", error);
   });
 
-  
+
   module.exports = spotifyApi;
 

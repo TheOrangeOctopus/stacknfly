@@ -43,8 +43,14 @@
       </select>
 
       <fieldset class="hidden spotify source" form="stack-data" name="spotify">
-        Search by Artist:<input type="text" name="spotify-title" id="spotify-title" value="">
-        Search by Song:<input type="text" name="spotify" id="spotify-song" value="">
+        Search in spotify Artist:<input type="text" name="spotify-query" id="spotify-query" value=""><button class="spotify-search">Search on spotify</button>
+       
+        <div class="spotify-results">
+          <ul class="spotify-results-list">
+
+          </ul>
+        </div>
+       
       </fieldset>
       
       <fieldset class="hidden youtube source" form="stack-data" name="youtube">
