@@ -49,7 +49,7 @@ router.post('/new', (req, res, next) => {
 })
 
 router.get('/', (req, res, next) => {
-  res.render('stacks/show');
+  res.render('index');
 });
 
 
