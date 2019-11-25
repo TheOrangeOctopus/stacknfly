@@ -53,6 +53,58 @@ router.get('/', (req, res, next) => {
 });
 
 
+router.get("/show", (req, res, next) => {
+  Stacks.find({})
+  .sort({"likesCounter": -1})
+    .lean()
+    .then(allStacks =>
+      res.render("stacks/show", { stacks: allStacks })
+    )
+    .catch(function() {
+      next();
+      throw new Error("There's an error.");
+    });
+});
+
+router.get("/adminpanel", (req, res, next) => {
+  Stacks.find({})
+  .sort({"created_at": 1})
+    .lean()
+    .then(allStacks =>
+      res.render("adminpanel", { stacks: allStacks })
+    )
+    .catch(function() {
+      next();
+      throw new Error("There's an error.");
+    });
+});
+
+router.get("/:id/delete", (req, res, next) => {
+  Stacks.findByIdAndDelete(req.params.id)
+    .then(deletedStack => res.redirect("/stacks/adminpanel"))
+    .catch(function() {
+      next();
+      throw new Error("Hmmmmm.... problems!");
+    });
+});
+
+router.get("/:id/edit", (req, res, next) => {
+  Stacks.findById(req.params.id)
+    .then(stackDetail =>
+      res.render("stacks/edit", { stack: stackDetail })
+    )
+    .catch(function() {
+      next();
+      throw new Error("Algo no ha ido bien, willy!");
+    });
+});
+
+router.post("/:id/edit", (req, res) => {
+  Stacks.updateOne({_id: req.body._id},req.body).then(updatedStack => {
+    res.redirect("/:id/edit");
+  });
+}); 
+
 
 router.get('/spotifyAPI/:query', (req, res, next) => {
   let items = [];

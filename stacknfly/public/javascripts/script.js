@@ -12,6 +12,7 @@ let spotifySearchDomEl = document.querySelector(".spotify-search")
 
 
 
+
 //let previewFormImgUrlDomEl =  document.querySelector("#img-url")
 
 function fadeInDOMEl(domEl, classToToggle, time) {

@@ -26,7 +26,8 @@ nav {
   /* Position the navbar at the top of the page */
   left: 0;
   width: 100%;
-  /* Full width */ }
+  /* Full width */
+  z-index: 1000; }
 
 nav a {
   text-decoration: none; }
@@ -79,7 +80,9 @@ nav div {
   background-color: blanchedalmond;
   margin: 2rem 2rem;
   display: flex;
-  flex-direction: column; }
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative; }
 
 .mid-preview-display {
   display: flex;
@@ -113,10 +116,15 @@ nav div {
 
 .image-preview-display {
   background-color: blue;
+  width: 35rem;
   height: 15rem;
   background-image: url("/images/city.jpeg");
-  /* object-fit: contain; */
-  background-size: contain; }
+  background-repeat: no-repeat;
+  background-size: cover; }
+  .image-preview-display img {
+    object-fit: cover;
+    width: inherit;
+    height: inherit; }
 
 .bottom-preview-display {
   display: flex;
@@ -124,17 +132,20 @@ nav div {
   justify-content: space-between;
   align-items: center;
   height: 3rem;
-  margin: 0.1rem 0.4rem; }
+  margin: 0.1rem 0.4rem;
+  position: relative;
+  bottom: 0rem; }
 
 .description-preview-display {
-  margin: 0rem 0.8rem; }
+  margin: 0rem 0.8rem;
+  padding: 0.5rem; }
 
 .sources-preview-display {
   width: 75%;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center; }
 
 .time-preview-display {
@@ -150,6 +161,12 @@ nav div {
   justify-content: flex-start;
   align-items: center;
   font-size: 1.7rem; }
+
+.control-panel {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center; }
 
 .ghost {
   opacity: .1;
