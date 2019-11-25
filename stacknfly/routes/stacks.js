@@ -51,6 +51,9 @@ router.get('/', (req, res, next) => {
   res.render('stacks/show');
 });
 
+router.get('/show', (req, res, next) => {
+  res.render('stacks/show');
+});
 
 
 

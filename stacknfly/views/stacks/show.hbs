@@ -1,23 +1,35 @@
-<h1>La lista de los stacks</h1>
+<a href="/stacks/new">SUGGEST A NEW COOL STACK</a>
+
 <div class="all-stacks">
-{{#each stack}}
-<div class="one-stack">
-  <div class="top-preview-display">
-<h2>Title</h2> <img  class="category-logo" src="/images/graduation_cap-256.png">
-  </div>
-  <div class="image-preview-display">
-    <img src="/images/dummy.jpeg" alt="perro">
-  </div>
-  <div class="mid-preview-display"> 
-    {{!-- iconos de los sources de la experiencia y el tiempo --}}
-    <img  class="category-logo" src="/images/music.png">
-    <img  class="category-logo" src="/images/video.png">
-    <img  class="category-logo" src="/images/book.png"> 1h
+  {{!-- {{#each}} --}}
+    <div class="one-stack">
+      <div class="top-preview-display">
+        <h2>Arquitectura básica</h2> <img  class="category-logo" src="/images/learn.png">
+      </div>
+      <div class="image-preview-display">
+      </div>
+      <div class="description-preview-display">
+        <p> 
+        Hola Fran, esto es un texto de 140 caracteres exactamente. Estoy en una página de contador de caracteres. Parece que va bien. ¡Paz hermano! 
+        </p>
+      </div>
+      <div class="mid-preview-display"> 
+         <!--    --> 
+        <div class="sources-preview-display">
+          <p><img  class="source-logo" src="/images/music.png"></p>
+          <p><img  class="source-logo" src="/images/video.png"></p>
+          <p><img  class="source-logo" src="/images/book.png"></p>
+          <p><img  class="source-logo" src="/images/link.png"></p>
+          <p><img  class="source-logo" src="/images/pdf.png"></p>  
+        </div>
+        <div class="time-preview-display">
+        <img  class="time-logo" src="/images/time.png"><h4>1h</h4> 
+        </div>
+      </div>
+      <div class="bottom-preview-display">
+        <div class="likes-preview-display"><img  class="category-logo" src="/images/heart.png"><h5>20</h5></div>
+          <p> Created by: Fran </p>
+      </div>
     </div>
-    <div class="bottom-preview-display">
-      <img  class="category-logo" src="/images/heart.png"> 20
-      <p> Created by: Fran </p>
-    </div>
-  </div>
-{{/each}}
+  {{!-- {{/each}} --}}
 <div>
