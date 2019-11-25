@@ -1,0 +1,60 @@
+.ghost{
+  opacity: .1;
+  background: rgba(61, 88, 99,1);
+}
+
+
+.main-wrapper{
+  width:100%;
+  justify-content: space-around;
+  display:flex;
+  input, select,button{
+    padding:1rem;
+    margin:1rem 0;
+    font-size:2rem;
+  }
+  p{
+    margin:1rem 0;
+    font-size:2rem;
+  }
+}
+
+.creation{
+  width:45%;
+  display:flex;
+  flex-direction: column;
+  align-items: left;
+
+.stack-controllers{
+  background-color:rgba(61, 88, 99,0.1)
+}
+
+.stack-mainInfo{
+  background-color:rgba(61, 88, 99,0.15)
+}
+
+.step-creation{
+  background-color:rgba(61, 88, 99,0.3)
+}
+
+
+}
+.new-preview{
+  width:45%;
+  display:flex;
+  flex-direction: column;
+  align-items: left;
+
+  .new-stack-step{
+    padding:1rem;
+    margin:1rem 0;
+    background-color: rgba(61, 88, 99,0.1);
+
+  }
+
+  .new-stack-step:hover{
+    cursor:  all-scroll;
+  }
+}
+
+
