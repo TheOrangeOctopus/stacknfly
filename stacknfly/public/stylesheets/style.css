@@ -1,20 +1,18 @@
-html {
-  font-size: 10px; }
+.hidden {
+  display: none; }
 
 * {
   box-sizing: border-box; }
 
+html {
+  font-size: 10px; }
+
 body {
-  padding: 0;
-  margin: 0;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; }
+  font: 1.4rem "Lucida Grande", Helvetica, Arial, sans-serif; }
 
-a {
-  color: #00B7FF; }
-
-.hidden {
-  display: none;
-  transition: 0.5s; }
+.ghost {
+  opacity: .1;
+  background: #3d5863; }
 
 .main-wrapper {
   width: 100%;
@@ -51,9 +49,5 @@ a {
     background-color: rgba(61, 88, 99, 0.1); }
   .new-preview .new-stack-step:hover {
     cursor: all-scroll; }
-
-.ghost {
-  opacity: .1;
-  background: #3d5863; }
 
 /*# sourceMappingURL=style.css.map */
