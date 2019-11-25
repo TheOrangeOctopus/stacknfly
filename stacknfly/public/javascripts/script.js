@@ -10,6 +10,7 @@ let sourceTypeDomEl = document.querySelector(".source-type")
 let sourcesDomEl = document.querySelectorAll(".source")
 
 
+
 //let previewFormImgUrlDomEl =  document.querySelector("#img-url")
 
 function fadeInDOMEl(domEl, classToToggle, time) {
@@ -175,3 +176,4 @@ new Sortable(stepsContainer, {
 });
 
 ////////////
+
