@@ -13,11 +13,6 @@ const session    = require("express-session");
 const MongoStore = require('connect-mongo')(session);
 const flash      = require("connect-flash");
 
-const stacks = require('./routes/stacks');
-const index = require('./routes/index');
-const authRoutes = require('./routes/auth');
-
-
 mongoose
   .connect('mongodb://localhost/stacknfly', {useNewUrlParser: true})
   .then(x => {
@@ -31,6 +26,7 @@ const app_name = require('./package.json').name;
 const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.')[0]}`);
 
 const app = express();
+
 
 // Middleware Setup
 app.use(logger('dev'));
@@ -79,8 +75,14 @@ app.use(session({
 app.use(flash());
 require('./passport')(app);
 
+
+const stacks = require('./routes/stacks');
+const index = require('./routes/index');
+const authRoutes = require('./routes/auth');
+
 app.use('/', index);
 app.use('/auth', authRoutes);
 app.use('/stacks', stacks);
 
+//module.exports = spotifyApi;
 module.exports = app;

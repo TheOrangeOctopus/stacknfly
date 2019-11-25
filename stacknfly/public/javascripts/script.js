@@ -77,7 +77,17 @@ function loadStepFromEditor() {
   let title = document.querySelector("#step-title").value
   let instructions = document.querySelector("#step-instructions").value
 
-  function spotifySourceLoader(container) { }
+  function spotifySourceLoader(container) {
+    let sourceContainerDomEl = document.createElement("div")
+    let a = document.createElement("a")
+    let link = document.querySelector("#link-url").value
+
+    a.setAttribute("href", `${link}`)
+    a.innerHTML = link
+
+    sourceContainerDomEl.appendChild(a)
+    container.appendChild(sourceContainerDomEl)
+   }
   function youtubeSourceLoader(container) { }
   function bookSourceLoader(container) { }
   function fileSourceLoader(container) { }
