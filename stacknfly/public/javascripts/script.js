@@ -12,6 +12,21 @@ let sourcesDomEl = document.querySelectorAll(".source")
 
 //let previewFormImgUrlDomEl =  document.querySelector("#img-url")
 
+function fadeInDOMEl(domEl, classToToggle, time) {
+    domEl.setAttribute(`style`, `opacity:0;`)
+    domEl.classList.toggle(classToToggle)
+    setTimeout(function () { domEl.setAttribute(`style`, `opacity:100; transition:${time}ms`) }, time)
+  
+  setTimeout(() => { domEl.removeAttribute("style") }, time * 2);
+}
+
+function fadeOutDOMEl(domEl, classToToggle, time) {
+  /* domEl.setAttribute(`style`, `opacity:100;`) */
+  domEl.setAttribute(`style`, `opacity:0;transition:${time}ms;`)
+  setTimeout(function () {
+  domEl.classList.toggle(classToToggle)}, time)
+setTimeout(() => { domEl.removeAttribute("style") }, time * 2);
+}
 
 function toggleClass2DOMEl(domEl1, domEl2, classToToggle, time) {
   domEl1.setAttribute(`style`, `opacity:0; transition:${time}ms`)
@@ -116,11 +131,12 @@ function loadStepFromEditor() {
 //Login Display Toggle
 loginDisplay.addEventListener("click", function (e) {
   e.preventDefault()
-  loginDomEl.classList.toggle("hidden")
+  fadeInDOMEl(loginDomEl, "hidden", 150)
+  /* loginDomEl.classList.toggle("hidden") */
 })
 closeLoginDisplay.addEventListener("click", function (e) {
   e.preventDefault()
-  loginDomEl.classList.toggle("hidden")
+  fadeOutDOMEl(loginDomEl, "hidden", 150)
 })
 
 //New Stack Handlers

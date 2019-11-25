@@ -23,10 +23,42 @@ nav div{
 }
 
 .login-box{
-  
+  display: flex;
   flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
   background-color: red;
-  position: fixed;
-  left: 20; 
-  top:50;
+  position: absolute;
+  width: 25rem;
+  right: 1.7rem; 
+  top: 5rem;
+  .close-login{
+    position: fixed;
+    top:5rem;
+    right: 1.5rem;
+  }
+  .login-fields{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    
+    background-color: saddlebrown;
+    
+    margin: 0.3rem 0.5rem;
+    
+    
+    label {
+    margin: 0.2rem 0.5rem;
+
+    }
+    input {
+    margin: 0.3 rem 0;
+    }
+  }
+}
+.logins-buttons{
+  display:flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin:1rem 0;
 }

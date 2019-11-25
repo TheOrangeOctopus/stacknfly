@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,45 +8,52 @@
   <title>{{title}}</title>
   <link rel="stylesheet" href="/stylesheets/style.css" />
 </head>
+
 <body>
 
   <nav>
     <div>
-    <a href="/">Logo</a>
+      <a href="/">Logo</a>
     </div>
     <div>
-    <a href="/auth/login" id="login-button" class="login-button">Login </a>
+      <a href="/auth/login" id="login-button" class="login-button">Login </a>
 
-    <div class="hidden login-box">
-    <form action="/auth/login" method="POST" id="form-container">
-    <button class="close-login"> X </button>
-    <label for="username">Username</label>
-    <input id="username" type="text" name="username" placeholder="JonSnow">
 
-    <br><br>
 
-  <label for="password">Password</label>
-  <input id="password" type="password" name="password" placeholder="Your password">
-  <br>
-  {{#if message }}
-    <div class="error-message">{{ message }}</div>
-  {{/if}}
-
-  <br><br>
-
-  <button>Login</button>
-  <br>
-  <a href="http://www.google.com/"><button > Login with google</button></a>
-  </div>
-
-    <a href="/auth/signup">Signup</a>
+      <a href="/auth/signup">Signup</a>
     </div>
   </nav>
+
+  <div class="hidden login-box">
+    <form action="/auth/login" method="POST" id="form-container">
+      <button class="close-login"> X </button>
+
+      <div class="login-fields">
+        <label for="username">Username</label>
+        <input id="username" type="text" name="username" placeholder="JonSnow">
+
+      
+
+        <label for="password">Password</label>
+        <input id="password" type="password" name="password" placeholder="Your password">
+        
+        {{#if message }}
+        <div class="error-message">{{ message }}</div>
+        {{/if}}
+      </div>
+      
+      <div class="logins-buttons">
+      <button>Login</button>
+      
+      <a href="http://www.google.com/"><button> Login with google</button></a>
+      </div>
+  </div>
 
   {{{body}}}
 
 
   <script src='/javascripts/sortable.min.js'></script>
-    <script src="/javascripts/script.js"></script>
+  <script src="/javascripts/script.js"></script>
 </body>
+
 </html>
