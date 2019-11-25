@@ -1,18 +1,20 @@
 const express = require('express');
 const router  = express.Router();
 const Stacks = require('../models/Stack');
+const spotifyApi = require("../configs/spotifyApi");
+
 
 router.get('/', (req, res, next) => {
   res.render('stacks/show');
 });
 
-router.get('/:id', (req, res, next) => {
-  Stacks.find({_id: req.params.id})
-  .then((stackFound) =>{
-    res.render('stacks/show', stackFound);
-  }).catch(next())
+// router.get('/:id', (req, res, next) => {
+//   Stacks.find({_id: req.params.id})
+//   .then((stackFound) =>{
+//     res.render('stacks/show', stackFound);
+//   }).catch(next())
   
-});
+// });
 
 //Valorar meter un project para quedarnos con lo que nos interesa del objeto
 //y ver si hay que popular.
@@ -52,6 +54,16 @@ router.get('/', (req, res, next) => {
 });
 
 
+
+router.get('/spotifyAPI', (req, res, next)=>{
+  spotifyApi.searchTracks('Love')
+  .then(function(data) {
+    console.log(data.body);
+  }, function(err) {
+    console.error(err);
+  });
+
+})
 
 
 
