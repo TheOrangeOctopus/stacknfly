@@ -49,10 +49,18 @@
 }
 .image-preview-display{
   background-color: blue;
+  width: 35rem;
   height: 15rem;
   background-image: url("/images/city.jpeg");
-  /* object-fit: contain; */
-  background-size: contain;
+  background-repeat: no-repeat;
+  
+  background-size: cover;
+  
+  img{
+   object-fit: cover;
+   width: inherit;
+   height: inherit;
+  }
 }
 
 .bottom-preview-display{
@@ -74,7 +82,7 @@ margin: 0rem 0.8rem;
   display:flex;
   flex-wrap: wrap;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
 }
 .time-preview-display{

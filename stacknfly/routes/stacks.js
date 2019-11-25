@@ -8,6 +8,7 @@ router.get('/', (req, res, next) => {
   res.render('stacks/show');
 });
 
+
 // router.get('/:id', (req, res, next) => {
 //   Stacks.find({_id: req.params.id})
 //   .then((stackFound) =>{
@@ -53,8 +54,17 @@ router.get('/', (req, res, next) => {
   res.render('stacks/show');
 });
 
-router.get('/show', (req, res, next) => {
-  res.render('stacks/show');
+
+router.get("/show", (req, res, next) => {
+  Stacks.find({})
+    .lean()
+    .then(allStacks =>
+      res.render("stacks/show", { stacks: allStacks })
+    )
+    .catch(function() {
+      next();
+      throw new Error("There's an error.");
+    });
 });
 
 
