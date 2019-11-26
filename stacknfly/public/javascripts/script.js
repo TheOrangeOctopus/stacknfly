@@ -81,13 +81,29 @@ function loadStepFromEditor() {
 
   function spotifySourceLoader(container) {
     let sourceContainerDomEl = document.createElement("div")
-    let a = document.createElement("a")
-    let link = document.querySelector("#link-url").value
+    let imgContainer = document.createElement("div")
+    let infoContainer = document.createElement("div")
+    let songTitleContainer = document.createElement("p")
+    let songArtistContainer = document.createElement("p")
+    let songImg = document.querySelector(".spotify-results-list > .active img")
+    let songTitle = document.querySelector(".spotify-results-list > .active  p").textContent
+    let songArtist = document.querySelector(".spotify-results-list >.active  p").textContent
 
-    a.setAttribute("href", `${link}`)
-    a.innerHTML = link
+    songArtistContainer.innerHTML = songArtist
+    songTitleContainer.innerHTML = songTitle
 
-    sourceContainerDomEl.appendChild(a)
+    imgContainer.appendChild(songImg)
+    infoContainer.appendChild(songTitleContainer)
+    infoContainer.appendChild(songArtistContainer)
+
+    sourceContainerDomEl.appendChild(imgContainer)
+    sourceContainerDomEl.appendChild(infoContainer)
+    // let link = document.querySelector("#link-url").value
+
+    // a.setAttribute("href", `${link}`)
+    // a.innerHTML = link
+
+    
     container.appendChild(sourceContainerDomEl)
    }
   function youtubeSourceLoader(container) { }
@@ -198,15 +214,19 @@ function spotifySearch(){
       let {img} = song
       
       let songInfoDomel = document.createElement("li")
+      let imgContainer = document.createElement("div")
+      let infoContainer = document.createElement("div")
       let titleDomel = document.createElement("p")
       let artistDomel = document.createElement("p")
       let imgDomel = document.createElement("img")
       let instDomel = document.createElement("span")
 
-      songInfoDomel.appendChild(titleDomel)
-      songInfoDomel.appendChild(artistDomel)
-      songInfoDomel.appendChild(imgDomel)
-      songInfoDomel.appendChild(instDomel)
+      imgContainer.appendChild(imgDomel)
+      infoContainer.appendChild(titleDomel)
+      infoContainer.appendChild(artistDomel)
+      infoContainer.appendChild(instDomel)
+      songInfoDomel.appendChild(imgContainer)
+      songInfoDomel.appendChild(infoContainer)
 
       titleDomel.innerHTML=song.name
       artistDomel.innerHTML=artist[0].name
@@ -214,7 +234,22 @@ function spotifySearch(){
       instDomel.innerHTML="Click to select this song"
 
       spotifyResults.appendChild(songInfoDomel)
+
     })
+  }).then(()=>{
+    let spotifyResultsList = document.querySelectorAll(".spotify-results-list > li")
+    spotifyResultsList.forEach((result)=>{
+      result.addEventListener("click", function(){
+        result.classList.toggle("active")
+        let otherResults = document.querySelectorAll(".spotify-results-list >li:not(.active)")
+        otherResults.forEach((other)=>{
+          other.classList.toggle("hidden")
+        })
+    })
+    spotifyResultsList
+      
+})
   })
 
 }
+
