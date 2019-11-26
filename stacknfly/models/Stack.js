@@ -30,7 +30,12 @@ const stackSchema = new Schema({
     //resource: [{type: Schema.Types.ObjectId,ref: "Resources"}],
     timeInMinutes: Number,
     order:Number,
-     }]
+     }],
+    hasMusic: Boolean,
+    hasBook: Boolean ,
+    hasVideo: Boolean,
+    hasLink: Boolean,
+    hasPdf: Boolean,
   }, {
   timestamps: {
     createdAt: 'created_at',

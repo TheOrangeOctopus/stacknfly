@@ -5,17 +5,17 @@ const spotifyApi = require("../configs/spotifyApi");
 const uploadPictureCloud = require('../configs/cloudinaryImg');
 const uploadDocumentCloud = require('../configs/cloudinaryDoc');
 
-router.get('/', (req, res, next) => {
-  res.render('stacks/show');
-});
+// router.get('/', (req, res, next) => {
+//   res.render('stacks/show');
+// });
 
-router.get('/:id', (req, res, next) => {
-  Stacks.find({ _id: req.params.id })
-    .then((stackFound) => {
-      res.render('stacks/show', stackFound);
-    }).catch(next())
+// router.get('/:id', (req, res, next) => {
+//   Stacks.find({ _id: req.params.id })
+//     .then((stackFound) => {
+//       res.render('stacks/show', stackFound);
+//     }).catch(next())
 
-});
+// });
 
 //Valorar meter un project para quedarnos con lo que nos interesa del objeto
 //y ver si hay que popular.
@@ -50,12 +50,7 @@ router.post('/new', (req, res, next) => {
 
 })
 
-router.get('/', (req, res, next) => {
-  res.render('stacks/show');
-});
-
-
-router.get("/show", (req, res, next) => {
+router.get("/", (req, res, next) => {
   Stacks.find({})
   .sort({"likesCounter": -1})
     .lean()
@@ -102,10 +97,31 @@ router.get("/:id/edit", (req, res, next) => {
 });
 
 router.post("/:id/edit", (req, res) => {
-  Stacks.updateOne({_id: req.body._id},req.body).then(updatedStack => {
-    res.redirect("/:id/edit");
-  });
+  Stacks.updateOne(
+    {_id: req.body._id},
+    {
+      title: req.body.title,
+      description: req.body.description,
+      category: req.body.category,
+      timeInHours: req.body.timeInHours,
+      status: req.body.status
+    }
+  )
+      .then(updatedStack => {
+    res.redirect("/stacks/adminpanel");
+  })
 }); 
+
+router.get("/:id", (req, res, next) => {
+  Stacks.findById(req.params.id)
+    .then(stackDetail =>
+      res.render("stacks/detail", { stack: stackDetail })
+    )
+    .catch(function() {
+      next();
+      throw new Error("Algo no ha ido bien, willy!");
+    });
+});
 
 
 router.get('/spotifyAPI/:query', (req, res, next) => {

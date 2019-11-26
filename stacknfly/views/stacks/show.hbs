@@ -2,7 +2,8 @@
 
 <div class="all-stacks">
   
-  {{#each stacks}}
+     {{#each stacks}}
+    <a class="previews" href="/stacks/{{_id}}" onmouseover="">
     <div class="one-stack">
       <div class="top-preview-display">
         <h2>{{title}}</h2> 
@@ -55,5 +56,6 @@
           <p> Created by: {{createdBy}} </p>
       </div>
     </div>
+    </a>
   {{/each}}
-<div>
+<div> 
