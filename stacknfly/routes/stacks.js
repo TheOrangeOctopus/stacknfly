@@ -3,9 +3,6 @@ const router = express.Router();
 const Stacks = require('../models/Stack');
 const spotifyApi = require("../configs/spotifyApi");
 
-router.get('/', (req, res, next) => {
-  res.render('stacks/show');
-});
 
 router.get('/:id', (req, res, next) => {
   Stacks.find({ _id: req.params.id })
@@ -48,12 +45,10 @@ router.post('/new', (req, res, next) => {
 
 })
 
-router.get('/', (req, res, next) => {
-  res.render('index');
-});
 
 
-router.get("/show", (req, res, next) => {
+
+router.get("/", (req, res, next) => {
   Stacks.find({})
   .sort({"likesCounter": -1})
     .lean()
@@ -87,7 +82,7 @@ router.get("/:id/delete", (req, res, next) => {
       throw new Error("Hmmmmm.... problems!");
     });
 });
-
+ /////////     LETS FIX EDIT :<     ///////////////////////////////
 router.get("/:id/edit", (req, res, next) => {
   Stacks.findById(req.params.id)
     .then(stackDetail =>
@@ -104,7 +99,7 @@ router.post("/:id/edit", (req, res) => {
     res.redirect("/:id/edit");
   });
 }); 
-
+////////////////////////////////////////////////////////////////////
 
 router.get('/spotifyAPI/:query', (req, res, next) => {
   let items = [];

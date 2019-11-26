@@ -20,7 +20,6 @@ let users = [
     email: "alicesexy@gmail.com",
     banned: false,
     rol: "user",
-    
     stacksSaved: ["Architec mode"],
   },
   {
@@ -37,6 +36,31 @@ let users = [
     email: "danielgallego@gmail.com",
     banned: true,
     rol: "mod",
+  },
+  {
+    username: "fake",
+    password: "fake",
+    email: "macfakerman@gmail.com",
+    banned: true,
+    rol: "user",
+    stacksSaved: ["Architec mode"],
+    stacksCreated: ["La hora de la chimichanga", "Aprende a sedusir a tu pareja"]
+  },
+  {
+    username: "doggie",
+    password: "bones",
+    email: "definetlly-not-a-dog@gmail.com",
+    banned: false,
+    rol: "mod",
+    stacksSaved:["How to be a good boy"]
+  },
+  {
+    username: "sito",
+    password: "sito",
+    email: "sito@citytonight.com",
+    banned: false,
+    rol: "user",
+    stacksCreated:["Pon Nicolage Cage en todos tus dispositivos"]
   }
 ]
 
