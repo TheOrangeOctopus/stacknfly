@@ -5,15 +5,16 @@ let loginDisplay = document.querySelector(".login-button")
 let loginDomEl = document.querySelector(".login-box")
 let addInfoBtn = document.querySelector(".btn-stackInfo")
 let addStepBtn = document.querySelector(".btn-addStep")
+let editStackInfoBtn = document.querySelector(".btn-editStackInfo")
 let mainInfoDomEl = document.querySelector(".stack-mainInfo")
 let stepDomEl = document.querySelector(".step-creation")
 let sourceTypeDomEl = document.querySelector(".source-type")
 let sourcesDomEl = document.querySelectorAll(".source")
 let spotifySearchDomEl = document.querySelector(".spotify-search")
 let youtubeBtn = document.querySelector(".insert-youtube")
-let uploadStackPic = document.querySelector(".botonaso")
-
-
+let uploadStackPic = document.querySelector(".upload-image")
+let uploadDoc = document.querySelector(".upload-document")
+let uploadDocDomEl = document.querySelector(".file-source")
 
 // General Functions
 function uploadPicture(inputID, destinationDomEl) {
@@ -21,19 +22,57 @@ function uploadPicture(inputID, destinationDomEl) {
  let uploadedImgDomEl = document.createElement("div")
  let img = document.createElement("img")
  let imgContainer = document.querySelector(`${destinationDomEl}`)
+ let hiddenUrl = document.createElement("input")
+ 
+ hiddenUrl.setAttribute("class","img-source")
+ hiddenUrl.setAttribute("type","hidden")
 
   var formData = new FormData();
-  var imagefile = document.querySelector(`${inputID}`);
-  formData.append("image", imagefile.files[0]);
+  var imagefile = document.querySelector(`${inputID}`)
+  formData.append("image", imagefile.files[0])
   axios.post('uploadPicture', formData, {
     headers: {
       'Content-Type': 'multipart/form-data'
     }
   }).then((imageUploaded) => {
     imgContainer.innerHTML=""
+    hiddenUrl.value= imageUploaded.data.url
     uploadedImgDomEl.appendChild(img)
+    uploadedImgDomEl.appendChild(hiddenUrl)
     img.setAttribute(`src`,`${imageUploaded.data.url}`)
     imgContainer.appendChild(uploadedImgDomEl)
+  })
+
+}
+
+function uploadDocument(inputID, destinationDomEl) {
+  // Upload an image via axios and render instantly inside the destination DOM element.
+ let uploadedDocDomEl = document.createElement("div")
+ let img = document.createElement("img")
+ let docContainer = document.querySelector(`${destinationDomEl}`)
+ let hiddenUrl = document.createElement("input")
+ let docName = document.createElement("p")
+ 
+ hiddenUrl.setAttribute("class","doc-source")
+ hiddenUrl.setAttribute("type","hidden")
+ uploadedDocDomEl.setAttribute("class","uploaded-document")
+
+  var formData = new FormData();
+  var documentfile = document.querySelector(`${inputID}`)
+  formData.append("document", documentfile.files[0])
+  axios.post('uploadDocument', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  }).then((documentUploaded) => {
+    docContainer.innerHTML=""
+    hiddenUrl.value= documentUploaded.data.url
+    docName.innerHTML=documentUploaded.data.originalname
+    uploadedDocDomEl.appendChild(img)
+    uploadedDocDomEl.appendChild(docName)
+    uploadedDocDomEl.appendChild(hiddenUrl)
+    img.setAttribute(`src`,`/images/pdf-icon.png`)
+    docContainer.appendChild(uploadedDocDomEl)
   })
 
 }
@@ -78,6 +117,9 @@ function loadInfoFromEditor() {
   let previewFormCategoryDomEl = document.querySelector("#category")
   let previewFormTagsDomEl = document.querySelector("#tags")
   let previewFormTimeDomEl = document.querySelector("#time")
+  let previewFormImg = document.querySelector(".new-img-stack")
+  let previewImgContainer = document.querySelector("#new-stack-image")
+  
   //let previewFormCreatorDomEl = document.querySelector("#creator")
 
   let title = document.querySelector("#new-title").value
@@ -85,16 +127,18 @@ function loadInfoFromEditor() {
   let category = document.querySelector("#new-category").value
   let time = document.querySelector("#new-time").value
   let tags = document.querySelector("#new-tags").value
-  //let imgUrl = document.querySelector("#new-img-url").value
+  let stackImgUrl = document.querySelector(".img-source").value
+  let stackImgUrlHidden = document.querySelector(".img-source")
   //let creator= document.querySelector("#new-creator").value
   previewTitleDomEl.innerHTML = title
   previewDescDomEl.innerHTML = description
-
+  previewFormImg.setAttribute(`src`,`${stackImgUrl}`)
   previewFormTitleDomEl.value = title
   previewFormDescDomEl.value = description
   previewFormCategoryDomEl.value = category
   previewFormTagsDomEl.value = tags
   previewFormTimeDomEl.value = time
+  previewImgContainer.appendChild(stackImgUrlHidden)
   // previewFormCreatorDomEl.value=creator
 }
 
@@ -120,7 +164,10 @@ function loadStepFromEditor() {
     container.appendChild(sourceContainerDomEl)
   }
   function bookSourceLoader(container) { }
-  function fileSourceLoader(container) { }
+  function fileSourceLoader(container) { 
+    let sourceContainerDomEl = document.querySelector(".uploaded-document")
+    container.appendChild(sourceContainerDomEl)
+  }
   function linkSourceLoader(container) {
     let sourceContainerDomEl = document.createElement("div")
     let a = document.createElement("a")
@@ -185,6 +232,12 @@ uploadStackPic.addEventListener("click", function (e) {
   uploadPicture("#stack-image", ".img-container")
 })
 
+uploadDoc.addEventListener("click", function (e) {
+  e.preventDefault()
+  uploadDocument("#selected-doc", ".file-source")
+})
+
+
 addInfoBtn.addEventListener("click", function (e) {
   e.preventDefault()
   toggleClass2DOMEl(mainInfoDomEl, stepDomEl, "hidden", 300)
@@ -194,6 +247,12 @@ addInfoBtn.addEventListener("click", function (e) {
 addStepBtn.addEventListener("click", function (e) {
   e.preventDefault()
   loadStepFromEditor()
+})
+
+
+editStackInfoBtn.addEventListener("click", function (e) {
+  e.preventDefault()
+  toggleClass2DOMEl(stepDomEl, mainInfoDomEl, "hidden", 300)
 })
 
 sourceTypeDomEl.addEventListener("change", function (e) {

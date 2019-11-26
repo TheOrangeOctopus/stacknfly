@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 const Stacks = require('../models/Stack');
 const spotifyApi = require("../configs/spotifyApi");
-const uploadCloud = require('../configs/cloudinary');
+const uploadPictureCloud = require('../configs/cloudinaryImg');
+const uploadDocumentCloud = require('../configs/cloudinaryDoc');
 
 router.get('/', (req, res, next) => {
   res.render('stacks/show');
@@ -136,9 +137,14 @@ router.get('/spotifyAPI/:query', (req, res, next) => {
 
 })
 
-router.post('/uploadPicture', uploadCloud.single("image"), (req, res, next) => {
+router.post('/uploadPicture', uploadPictureCloud.single("image"), (req, res, next) => {
   res.json(req.file)  
 });
+
+router.post('/uploadDocument', uploadDocumentCloud.single("document"), (req, res, next) => {
+  res.json(req.file)  
+});
+
 
 
 

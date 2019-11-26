@@ -24,7 +24,7 @@
         placeholder="Short description of the stack">
       <p>Image:</p>
           Select file to upload:<input type="file" name="photo" id="stack-image">
-          <a href="#" class="botonaso">SUBIR VIA AXIOS</a>
+          <a href="#" class="upload-image">SUBIR VIA AXIOS</a>
           <div class="img-container">
           
           </div>
@@ -78,10 +78,15 @@
 
       <fieldset class="hidden file source" form="stack-data" name="file">
         
+        Select file to upload:<input type="file" name="selected-doc" id="selected-doc">
+          <a href="#" class="upload-document">SUBIR VIA AXIOS</a>
+          <div class="file-source">
 
+          </div>
       </fieldset>
 
       <button class="btn-addStep" value="Create Step"> Add Step </button>
+      <button class="btn-editStackInfo" value=""> Edit Stack Info </button>
     </div>
   </div>
 
