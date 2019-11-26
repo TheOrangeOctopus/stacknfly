@@ -137,9 +137,7 @@ router.get('/spotifyAPI/:query', (req, res, next) => {
 })
 
 router.post('/uploadPicture', uploadCloud.single("image"), (req, res, next) => {
-  res.json(req.file)  
+  res.json(req.file)
 });
-
-
 
 module.exports = router;
