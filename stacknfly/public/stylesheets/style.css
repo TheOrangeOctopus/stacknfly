@@ -210,21 +210,31 @@ nav div {
 
 .spotify-results-list {
   list-style-type: none;
-  widows: 100%;
+  width: 100%;
   display: flex;
-  flex-direction: column; }
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 1rem; }
+  .spotify-results-list div:first-of-type {
+    width: 20%; }
+  .spotify-results-list div:last-of-type {
+    width: 75%; }
   .spotify-results-list li {
     display: flex;
     background-color: #ccc;
     padding: 0.5rem;
     margin: 0.5rem 0;
-    transition: 0.3s; }
+    transition: 0.3s;
+    width: 48%;
+    flex-wrap: wrap; }
     .spotify-results-list li img {
-      width: 5rem;
-      height: 5rem; }
+      width: 100%;
+      height: 100%;
+      object-fit: contain; }
   .spotify-results-list li:hover {
     cursor: pointer;
-    background-color: rgba(176, 201, 255, 0.5);
+    background-color: rgba(111, 117, 131, 0.5);
     transition: 0.3s; }
 
 /*# sourceMappingURL=style.css.map */
