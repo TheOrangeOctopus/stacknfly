@@ -1,7 +1,8 @@
+// Selectors
+
 let closeLoginDisplay = document.querySelector(".close-login")
 let loginDisplay = document.querySelector(".login-button")
 let loginDomEl = document.querySelector(".login-box")
-
 let addInfoBtn = document.querySelector(".btn-stackInfo")
 let addStepBtn = document.querySelector(".btn-addStep")
 let mainInfoDomEl = document.querySelector(".stack-mainInfo")
@@ -9,16 +10,38 @@ let stepDomEl = document.querySelector(".step-creation")
 let sourceTypeDomEl = document.querySelector(".source-type")
 let sourcesDomEl = document.querySelectorAll(".source")
 let spotifySearchDomEl = document.querySelector(".spotify-search")
+let youtubeBtn = document.querySelector(".insert-youtube")
+let uploadStackPic = document.querySelector(".botonaso")
 
 
 
+// General Functions
+function uploadPicture(inputID, destinationDomEl) {
+  // Upload an image via axios and render instantly inside the destination DOM element.
+ let uploadedImgDomEl = document.createElement("div")
+ let img = document.createElement("img")
+ let imgContainer = document.querySelector(`${destinationDomEl}`)
 
-//let previewFormImgUrlDomEl =  document.querySelector("#img-url")
+  var formData = new FormData();
+  var imagefile = document.querySelector(`${inputID}`);
+  formData.append("image", imagefile.files[0]);
+  axios.post('uploadPicture', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  }).then((imageUploaded) => {
+    imgContainer.innerHTML=""
+    uploadedImgDomEl.appendChild(img)
+    img.setAttribute(`src`,`${imageUploaded.data.url}`)
+    imgContainer.appendChild(uploadedImgDomEl)
+  })
+
+}
 
 function fadeInDOMEl(domEl, classToToggle, time) {
-    domEl.setAttribute(`style`, `opacity:0;`)
-    domEl.classList.toggle(classToToggle)
-    setTimeout(function () { domEl.setAttribute(`style`, `opacity:100; transition:${time}ms`) }, time)
+  domEl.setAttribute(`style`, `opacity:0;`)
+  domEl.classList.toggle(classToToggle)
+  setTimeout(function () { domEl.setAttribute(`style`, `opacity:100; transition:${time}ms`) }, time)
   
   setTimeout(() => { domEl.removeAttribute("style") }, time * 2);
 }
@@ -27,8 +50,9 @@ function fadeOutDOMEl(domEl, classToToggle, time) {
   /* domEl.setAttribute(`style`, `opacity:100;`) */
   domEl.setAttribute(`style`, `opacity:0;transition:${time}ms;`)
   setTimeout(function () {
-  domEl.classList.toggle(classToToggle)}, time)
-setTimeout(() => { domEl.removeAttribute("style") }, time * 2);
+    domEl.classList.toggle(classToToggle)
+  }, time)
+  setTimeout(() => { domEl.removeAttribute("style") }, time * 2);
 }
 
 function toggleClass2DOMEl(domEl1, domEl2, classToToggle, time) {
@@ -41,6 +65,9 @@ function toggleClass2DOMEl(domEl1, domEl2, classToToggle, time) {
   }, time);
   setTimeout(() => { domEl2.removeAttribute("style") }, time * 3);
 }
+
+
+//New Stack Functions
 
 function loadInfoFromEditor() {
   //Falta hacer el img uploader y la petición del nombre de usuario
@@ -71,43 +98,27 @@ function loadInfoFromEditor() {
   // previewFormCreatorDomEl.value=creator
 }
 
-
 function loadStepFromEditor() {
   let stepsContainerDomEl = document.querySelector(".new-stack-steps")
-  let newStepDomEl = document.createElement("div")
+  let newStepDomEl = document.createElement("li")
   let newStepTitleDomEl = document.createElement("h2")
   let newStepInstDomEl = document.createElement("p")
   let title = document.querySelector("#step-title").value
   let instructions = document.querySelector("#step-instructions").value
 
   function spotifySourceLoader(container) {
+    let spotifyQueryDomEl = document.querySelector("#spotify-query")
     let sourceContainerDomEl = document.createElement("div")
-    let imgContainer = document.createElement("div")
-    let infoContainer = document.createElement("div")
-    let songTitleContainer = document.createElement("p")
-    let songArtistContainer = document.createElement("p")
-    let songImg = document.querySelector(".spotify-results-list > .active img")
-    let songTitle = document.querySelector(".spotify-results-list > .active  p").textContent
-    let songArtist = document.querySelector(".spotify-results-list >.active  p").textContent
-
-    songArtistContainer.innerHTML = songArtist
-    songTitleContainer.innerHTML = songTitle
-
-    imgContainer.appendChild(songImg)
-    infoContainer.appendChild(songTitleContainer)
-    infoContainer.appendChild(songArtistContainer)
-
-    sourceContainerDomEl.appendChild(imgContainer)
-    sourceContainerDomEl.appendChild(infoContainer)
-    // let link = document.querySelector("#link-url").value
-
-    // a.setAttribute("href", `${link}`)
-    // a.innerHTML = link
-
-    
+    let sourceDomEl = document.querySelector(".spotify-result")
+    sourceContainerDomEl.setAttribute("Class", "step-source")
+    sourceContainerDomEl.appendChild(sourceDomEl)
     container.appendChild(sourceContainerDomEl)
-   }
-  function youtubeSourceLoader(container) { }
+    spotifyQueryDomEl.value = ""
+  }
+  function youtubeSourceLoader(container) {
+    let sourceContainerDomEl = document.querySelector(".youtube-video")
+    container.appendChild(sourceContainerDomEl)
+  }
   function bookSourceLoader(container) { }
   function fileSourceLoader(container) { }
   function linkSourceLoader(container) {
@@ -169,6 +180,11 @@ closeLoginDisplay.addEventListener("click", function (e) {
 })
 
 //New Stack Handlers
+uploadStackPic.addEventListener("click", function (e) {
+  e.preventDefault()
+  uploadPicture("#stack-image", ".img-container")
+})
+
 addInfoBtn.addEventListener("click", function (e) {
   e.preventDefault()
   toggleClass2DOMEl(mainInfoDomEl, stepDomEl, "hidden", 300)
@@ -188,33 +204,33 @@ sourceTypeDomEl.addEventListener("change", function (e) {
   document.querySelector(`.${sourceTypeDomEl.value}`).classList.toggle("hidden")
 })
 
-spotifySearchDomEl.addEventListener("click",function(e){
-
+spotifySearchDomEl.addEventListener("click", function (e) {
   e.preventDefault()
   spotifySearch()
 })
 
-/////// DRAG&DROP
+youtubeBtn.addEventListener("click", function (e) {
+  e.preventDefault()
+  youtubeLinkToEmbed()
+})
 
-new Sortable(stepsContainer, {
-  animation: 150,
-  ghostClass: 'ghost'
-});
 
-////////////AXIOS REQUESTS//////////
 
-function spotifySearch(){
+////////////AXIOS & OTHER REQUESTS//////////
+
+function spotifySearch() {
   let spotifyQuery = document.querySelector("#spotify-query").value
   let spotifyResults = document.querySelector(".spotify-results-list")
   axios.get(`http://localhost:3000/stacks/spotifyAPI/${spotifyQuery}`).then(songsFound => {
-   
+
     spotifyResults.innerHTML = ""
 
-    songsFound.data.forEach((song)=>{
-      let {artist} = song
-      let {img} = song
-      
+    songsFound.data.forEach((song) => {
+      let { artist } = song
+      let { img } = song
+
       let songInfoDomel = document.createElement("li")
+      let sourceContainer = document.createElement("div")
       let imgContainer = document.createElement("div")
       let infoContainer = document.createElement("div")
       let titleDomel = document.createElement("p")
@@ -226,31 +242,52 @@ function spotifySearch(){
       infoContainer.appendChild(titleDomel)
       infoContainer.appendChild(artistDomel)
       infoContainer.appendChild(instDomel)
-      songInfoDomel.appendChild(imgContainer)
-      songInfoDomel.appendChild(infoContainer)
+      sourceContainer.appendChild(imgContainer)
+      sourceContainer.appendChild(infoContainer)
+      sourceContainer.setAttribute("class", "spotify-result")
+      titleDomel.innerHTML = song.name
+      artistDomel.innerHTML = artist[0].name
+      imgDomel.setAttribute(`src`, `${img[0].url}`)
+      instDomel.innerHTML = "Click to select this song"
 
-      titleDomel.innerHTML=song.name
-      artistDomel.innerHTML=artist[0].name
-      imgDomel.setAttribute(`src`,`${img[0].url}`)
-      instDomel.innerHTML="Click to select this song"
-
+      songInfoDomel.appendChild(sourceContainer)
       spotifyResults.appendChild(songInfoDomel)
 
     })
-  }).then(()=>{
+  }).then(() => {
     let spotifyResultsList = document.querySelectorAll(".spotify-results-list > li")
-    spotifyResultsList.forEach((result)=>{
-      result.addEventListener("click", function(){
+    spotifyResultsList.forEach((result) => {
+      result.addEventListener("click", function () {
         result.classList.toggle("active")
         let otherResults = document.querySelectorAll(".spotify-results-list >li:not(.active)")
-        otherResults.forEach((other)=>{
-          other.classList.toggle("hidden")
+        otherResults.forEach((other) => {
+          other.remove()
         })
+      })
     })
-    spotifyResultsList
-      
-})
   })
 
 }
 
+
+function youtubeLinkToEmbed() {
+  let youtubeLink = document.querySelector("#youtube-link").value
+  let youtubeCode = youtubeLink.substring(youtubeLink.length - 11)
+  let youtubeEmbed = "https://www.youtube.com/embed/" + youtubeCode
+  let sourceContainer = document.querySelector(".youtube-result")
+  let youtubeContainer = document.createElement("div")
+  let iframeYoutube = document.createElement("iframe")
+  iframeYoutube.setAttribute(`src`, `${youtubeEmbed}`)
+  youtubeContainer.setAttribute("class", "youtube-video")
+  youtubeContainer.appendChild(iframeYoutube)
+  sourceContainer.appendChild(youtubeContainer)
+}
+
+
+
+/////// SORTABLE
+
+new Sortable(stepsContainer, {
+  animation: 150,
+  ghostClass: 'ghost'
+});

@@ -22,8 +22,13 @@
       <p>Title:</p> <input type="text" name="title" id="new-title" value="" placeholder="Name your brand new Stack :)">
       <p>Description:</p> <input type="text" name="description" id="new-description" value=""
         placeholder="Short description of the stack">
-      <p>Image:</p> <input type="text" name="image" id="new-img" value=""
-        placeholder="Here will be an image upload field">
+      <p>Image:</p>
+          Select file to upload:<input type="file" name="photo" id="stack-image">
+          <a href="#" class="botonaso">SUBIR VIA AXIOS</a>
+          <div class="img-container">
+          
+          </div>
+        
       <p>Tags:</p> <input type="text" name="tags" id="new-tags" value="" placeholder="Insert Tags divided by commas">
 
       <button class="btn-stackInfo" value="Add Main Info"> Add info </button>
@@ -43,18 +48,24 @@
       </select>
 
       <fieldset class="hidden spotify source" form="stack-data" name="spotify">
-        Search in spotify Artist:<input type="text" name="spotify-query" id="spotify-query" value=""><button class="spotify-search">Search on spotify</button>
-       
+        Search in spotify Artist:<input type="text" name="spotify-query" id="spotify-query" value=""><button
+          class="spotify-search">Search on spotify</button>
+
         <div class="spotify-results">
           <ul class="spotify-results-list">
 
           </ul>
         </div>
-       
+
       </fieldset>
-      
+
       <fieldset class="hidden youtube source" form="stack-data" name="youtube">
-        Url:<input type="text" name="youtube-url" id="youtube-url" value="">
+        Url:<input type="text" name="youtube-url" id="youtube-link" value="">
+        <button class="insert-youtube">Add youtube Video
+        </button>
+        <div class="youtube-result">
+
+        </div>
       </fieldset>
 
       <fieldset class="hidden book source" form="stack-data" name="book">
@@ -66,7 +77,8 @@
       </fieldset>
 
       <fieldset class="hidden file source" form="stack-data" name="file">
-        Select file to upload:<input type="file" name="file-url" id="file-url" value="">
+        
+
       </fieldset>
 
       <button class="btn-addStep" value="Create Step"> Add Step </button>
@@ -84,15 +96,13 @@
       <img class="new-img-stack" src="/images/dummy.jpeg" alt="stack image">
     </div>
     <div class="new-stack-steps" id="stepsContainer">
-      <div class="new-stack-step">
-        <h2 class="new-step-title">Step title</h2>
-        <p class="new-step-description"> Lorem ipsum dolor sit, amet consectetur adipisicing elit.</p>
-        <div class="step-source">
+      <ul class="new-stack-step">
+        <li>
+          <h2 class="new-step-title">Step title</h2>
+          <p class="new-step-description"> Lorem ipsum dolor sit, amet consectetur adipisicing elit.</p>
 
-        </div>
-
-
-      </div>
+        </li>
+      </ul>
     </div>
 
 

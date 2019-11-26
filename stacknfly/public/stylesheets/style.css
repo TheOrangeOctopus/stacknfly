@@ -216,10 +216,6 @@ nav div {
   justify-content: space-between;
   flex-wrap: wrap;
   padding: 1rem; }
-  .spotify-results-list div:first-of-type {
-    width: 20%; }
-  .spotify-results-list div:last-of-type {
-    width: 75%; }
   .spotify-results-list li {
     display: flex;
     background-color: #ccc;
@@ -236,5 +232,27 @@ nav div {
     cursor: pointer;
     background-color: rgba(111, 117, 131, 0.5);
     transition: 0.3s; }
+
+.new-stack-step div {
+  display: flex; }
+  .new-stack-step div div:first-of-type {
+    width: 30%; }
+    .new-stack-step div div:first-of-type img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain; }
+  .new-stack-step div div:last-of-type {
+    width: 70%; }
+
+.spotify-result {
+  display: flex;
+  justify-content: space-between;
+  width: 100%; }
+  .spotify-result p {
+    font-size: 1.4rem; }
+  .spotify-result div:first-of-type {
+    width: 20%; }
+  .spotify-result div:last-of-type {
+    width: 75%; }
 
 /*# sourceMappingURL=style.css.map */
