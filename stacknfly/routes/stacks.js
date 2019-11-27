@@ -2,19 +2,20 @@ const express = require('express');
 const router = express.Router();
 const Stacks = require('../models/Stack');
 const spotifyApi = require("../configs/spotifyApi");
-const uploadCloud = require('../configs/cloudinary');
+const uploadPictureCloud = require('../configs/cloudinaryImg');
+const uploadDocumentCloud = require('../configs/cloudinaryDoc');
 
-router.get('/', (req, res, next) => {
-  res.render('stacks/show');
-});
+// router.get('/', (req, res, next) => {
+//   res.render('stacks/show');
+// });
 
-router.get('/:id', (req, res, next) => {
-  Stacks.find({ _id: req.params.id })
-    .then((stackFound) => {
-      res.render('stacks/show', stackFound);
-    }).catch(next())
+// router.get('/:id', (req, res, next) => {
+//   Stacks.find({ _id: req.params.id })
+//     .then((stackFound) => {
+//       res.render('stacks/show', stackFound);
+//     }).catch(next())
 
-});
+// });
 
 //Valorar meter un project para quedarnos con lo que nos interesa del objeto
 //y ver si hay que popular.
@@ -32,29 +33,12 @@ router.get('/new', (req, res, next) => {
 
 //revisar si popular , la subida de imagenes y los steps que populen las sources
 router.post('/new', (req, res, next) => {
-  let Stack = new Stacks({
-    title: req.body.title,
-    description: req.body.description,
-    category: req.body.category,
-    tags: req.body.tags,
-    timeInHours: req.body.time,
-    likesCounter: 0,
-    createdBy: req.body.creator,
-    status: "pending",
-    image: req.body.img - url,
-    steps: req.body.steps,
-  })
-
-  Stacks.save(Stack)
-
+  Stacks.create(req.body).then(createdStack=> {
+    res.json({ createdStack, timestamp: new Date() });
+  });
 })
 
-router.get('/', (req, res, next) => {
-  res.render('stacks/show');
-});
-
-
-router.get("/show", (req, res, next) => {
+router.get("/", (req, res, next) => {
   Stacks.find({})
   .sort({"likesCounter": -1})
     .lean()
@@ -101,10 +85,31 @@ router.get("/:id/edit", (req, res, next) => {
 });
 
 router.post("/:id/edit", (req, res) => {
-  Stacks.updateOne({_id: req.body._id},req.body).then(updatedStack => {
-    res.redirect("/:id/edit");
-  });
+  Stacks.updateOne(
+    {_id: req.body._id},
+    {
+      title: req.body.title,
+      description: req.body.description,
+      category: req.body.category,
+      timeInHours: req.body.timeInHours,
+      status: req.body.status
+    }
+  )
+      .then(updatedStack => {
+    res.redirect("/stacks/adminpanel");
+  })
 }); 
+
+router.get("/:id", (req, res, next) => {
+  Stacks.findById(req.params.id)
+    .then(stackDetail =>
+      res.render("stacks/detail", { stack: stackDetail })
+    )
+    .catch(function() {
+      next();
+      throw new Error("Algo no ha ido bien, willy!");
+    });
+});
 
 
 router.get('/spotifyAPI/:query', (req, res, next) => {
@@ -136,8 +141,15 @@ router.get('/spotifyAPI/:query', (req, res, next) => {
 
 })
 
-router.post('/uploadPicture', uploadCloud.single("image"), (req, res, next) => {
-  res.json(req.file)
+router.post('/uploadPicture', uploadPictureCloud.single("image"), (req, res, next) => {
+  res.json(req.file)  
 });
+
+router.post('/uploadDocument', uploadDocumentCloud.single("document"), (req, res, next) => {
+  res.json(req.file)  
+});
+
+
+
 
 module.exports = router;

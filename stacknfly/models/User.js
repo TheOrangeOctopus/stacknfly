@@ -9,8 +9,10 @@ const userSchema = new Schema({
   rol: {type: String, enum: ["user", "admin", "mod"], default: "user"},
   stacksCreated: Array,
   //stacksCreated: [{type: Schema.Types.ObjectId,ref: "Stack"}] ,
-  stacksSaved: Array
-  //stacksSaved: [{type: Schema.Types.ObjectId,ref: "Stack"}]
+  stacksSaved: Array,
+  //stacksSaved: [{type: Schema.Types.ObjectId,ref: "Stack"}],
+  stacksLiked: Array
+  //stacksLiked: [{type: Schema.Types.ObjectId,ref: "Stack"}],
 }, {
   timestamps: {
     createdAt: 'created_at',
