@@ -6,6 +6,7 @@ let loginDomEl = document.querySelector(".login-box")
 let addInfoBtn = document.querySelector(".btn-stackInfo")
 let addStepBtn = document.querySelector(".btn-addStep")
 let editStackInfoBtn = document.querySelector(".btn-editStackInfo")
+let saveStackBtn = document.querySelector(".save-stack")
 let mainInfoDomEl = document.querySelector(".stack-mainInfo")
 let stepDomEl = document.querySelector(".step-creation")
 let sourceTypeDomEl = document.querySelector(".source-type")
@@ -19,13 +20,13 @@ let uploadDocDomEl = document.querySelector(".file-source")
 // General Functions
 function uploadPicture(inputID, destinationDomEl) {
   // Upload an image via axios and render instantly inside the destination DOM element.
- let uploadedImgDomEl = document.createElement("div")
- let img = document.createElement("img")
- let imgContainer = document.querySelector(`${destinationDomEl}`)
- let hiddenUrl = document.createElement("input")
- 
- hiddenUrl.setAttribute("class","img-source")
- hiddenUrl.setAttribute("type","hidden")
+  let uploadedImgDomEl = document.createElement("div")
+  let img = document.createElement("img")
+  let imgContainer = document.querySelector(`${destinationDomEl}`)
+  let hiddenUrl = document.createElement("input")
+
+  hiddenUrl.setAttribute("class", "img-source")
+  hiddenUrl.setAttribute("type", "hidden")
 
   var formData = new FormData();
   var imagefile = document.querySelector(`${inputID}`)
@@ -35,11 +36,11 @@ function uploadPicture(inputID, destinationDomEl) {
       'Content-Type': 'multipart/form-data'
     }
   }).then((imageUploaded) => {
-    imgContainer.innerHTML=""
-    hiddenUrl.value= imageUploaded.data.url
+    imgContainer.innerHTML = ""
+    hiddenUrl.value = imageUploaded.data.url
     uploadedImgDomEl.appendChild(img)
     uploadedImgDomEl.appendChild(hiddenUrl)
-    img.setAttribute(`src`,`${imageUploaded.data.url}`)
+    img.setAttribute(`src`, `${imageUploaded.data.url}`)
     imgContainer.appendChild(uploadedImgDomEl)
   })
 
@@ -47,15 +48,15 @@ function uploadPicture(inputID, destinationDomEl) {
 
 function uploadDocument(inputID, destinationDomEl) {
   // Upload an image via axios and render instantly inside the destination DOM element.
- let uploadedDocDomEl = document.createElement("div")
- let img = document.createElement("img")
- let docContainer = document.querySelector(`${destinationDomEl}`)
- let hiddenUrl = document.createElement("input")
- let docName = document.createElement("p")
- 
- hiddenUrl.setAttribute("class","doc-source")
- hiddenUrl.setAttribute("type","hidden")
- uploadedDocDomEl.setAttribute("class","uploaded-document")
+  let uploadedDocDomEl = document.createElement("div")
+  let img = document.createElement("img")
+  let docContainer = document.querySelector(`${destinationDomEl}`)
+  let hiddenUrl = document.createElement("input")
+  let docName = document.createElement("p")
+
+  hiddenUrl.setAttribute("class", "doc-source")
+  hiddenUrl.setAttribute("type", "hidden")
+  uploadedDocDomEl.setAttribute("class", "uploaded-document")
 
   var formData = new FormData();
   var documentfile = document.querySelector(`${inputID}`)
@@ -65,13 +66,13 @@ function uploadDocument(inputID, destinationDomEl) {
       'Content-Type': 'multipart/form-data'
     }
   }).then((documentUploaded) => {
-    docContainer.innerHTML=""
-    hiddenUrl.value= documentUploaded.data.url
-    docName.innerHTML=documentUploaded.data.originalname
+    docContainer.innerHTML = ""
+    hiddenUrl.value = documentUploaded.data.url
+    docName.innerHTML = documentUploaded.data.originalname
     uploadedDocDomEl.appendChild(img)
     uploadedDocDomEl.appendChild(docName)
     uploadedDocDomEl.appendChild(hiddenUrl)
-    img.setAttribute(`src`,`/images/pdf-icon.png`)
+    img.setAttribute(`src`, `/images/pdf-icon.png`)
     docContainer.appendChild(uploadedDocDomEl)
   })
 
@@ -81,7 +82,7 @@ function fadeInDOMEl(domEl, classToToggle, time) {
   domEl.setAttribute(`style`, `opacity:0;`)
   domEl.classList.toggle(classToToggle)
   setTimeout(function () { domEl.setAttribute(`style`, `opacity:100; transition:${time}ms`) }, time)
-  
+
   setTimeout(() => { domEl.removeAttribute("style") }, time * 2);
 }
 
@@ -119,7 +120,7 @@ function loadInfoFromEditor() {
   let previewFormTimeDomEl = document.querySelector("#time")
   let previewFormImg = document.querySelector(".new-img-stack")
   let previewImgContainer = document.querySelector("#new-stack-image")
-  
+
   //let previewFormCreatorDomEl = document.querySelector("#creator")
 
   let title = document.querySelector("#new-title").value
@@ -127,23 +128,28 @@ function loadInfoFromEditor() {
   let category = document.querySelector("#new-category").value
   let time = document.querySelector("#new-time").value
   let tags = document.querySelector("#new-tags").value
-  let stackImgUrl = document.querySelector(".img-source").value
+  let stackImgUrl = document.querySelector(".img-source")
   let stackImgUrlHidden = document.querySelector(".img-source")
   //let creator= document.querySelector("#new-creator").value
   previewTitleDomEl.innerHTML = title
   previewDescDomEl.innerHTML = description
-  previewFormImg.setAttribute(`src`,`${stackImgUrl}`)
+  if (stackImgUrl !== null) {
+    previewFormImg.setAttribute(`src`, `${stackImgUrl.value}`)
+  }
   previewFormTitleDomEl.value = title
   previewFormDescDomEl.value = description
   previewFormCategoryDomEl.value = category
   previewFormTagsDomEl.value = tags
   previewFormTimeDomEl.value = time
-  previewImgContainer.appendChild(stackImgUrlHidden)
+  if (stackImgUrl !== null) {
+    previewImgContainer.appendChild(stackImgUrlHidden)
+  }
+
   // previewFormCreatorDomEl.value=creator
 }
 
 function loadStepFromEditor() {
-  let stepsContainerDomEl = document.querySelector(".new-stack-steps")
+  let stepsContainerDomEl = document.querySelector(".steps-list")
   let newStepDomEl = document.createElement("li")
   let newStepTitleDomEl = document.createElement("h2")
   let newStepInstDomEl = document.createElement("p")
@@ -158,15 +164,18 @@ function loadStepFromEditor() {
     sourceContainerDomEl.appendChild(sourceDomEl)
     container.appendChild(sourceContainerDomEl)
     spotifyQueryDomEl.value = ""
+    newStepDomEl.classList.add("src-spotify")
   }
   function youtubeSourceLoader(container) {
     let sourceContainerDomEl = document.querySelector(".youtube-video")
     container.appendChild(sourceContainerDomEl)
+    newStepDomEl.classList.add("src-youtube")
   }
   function bookSourceLoader(container) { }
-  function fileSourceLoader(container) { 
+  function fileSourceLoader(container) {
     let sourceContainerDomEl = document.querySelector(".uploaded-document")
     container.appendChild(sourceContainerDomEl)
+    newStepDomEl.classList.add("src-doc")
   }
   function linkSourceLoader(container) {
     let sourceContainerDomEl = document.createElement("div")
@@ -178,9 +187,10 @@ function loadStepFromEditor() {
 
     sourceContainerDomEl.appendChild(a)
     container.appendChild(sourceContainerDomEl)
+    newStepDomEl.classList.add("src-link")
   }
 
-  newStepDomEl.setAttribute("class", "new-stack-step")
+  newStepDomEl.setAttribute("class", "new-step")
   newStepTitleDomEl.setAttribute("class", "new-step-title")
   newStepInstDomEl.setAttribute("class", "new-step-description")
 
@@ -214,6 +224,58 @@ function loadStepFromEditor() {
 
 }
 
+function sendInfoToDB() {
+  let title = document.querySelector("#new-stack-title").innerText
+  let description = document.querySelector("#new-stack-description").innerText
+  let category = document.querySelector("#category").value
+  let tags = document.querySelector("#tags").value.split(",")
+  let timeInHours = document.querySelector("#time").value
+  let likesCounter = 0
+  let createdBy = "Person to rellenar"
+  let image = document.querySelector(".img-source").value
+  let steps = []
+  let stepsDomEl = document.querySelectorAll(".new-step")
+
+  //works but need to be implemented
+  stepsDomEl.forEach((step, idx) => {
+    step.classList.value.includes("src-spotify") ? console.log("SPOTIFY"):null
+    step.classList.value.includes("src-youtube") ? console.log("YOUTUBE"):null
+    step.classList.value.includes("src-link") ? console.log("LINK"):null
+
+    step.classList.value.includes("src-doc") ? console.log("DOC"):null
+
+  })
+
+
+  let body = {
+    title: title,
+    description: description,
+    category: category,
+    tags: tags,
+    timeInHours: timeInHours,
+    likesCounter: likesCounter,
+    createdBy: createdBy,
+    image: image
+    // steps: [{
+    //   title : String,
+    //   instruction: String,
+    //   resource: String,
+    //   //resource: [{type: Schema.Types.ObjectId,ref: "Resources"}],
+    //   timeInMinutes: Number,
+    //   order:Number,
+    //    }],
+    //   hasMusic: Boolean,
+    //   hasBook: Boolean ,
+    //   hasVideo: Boolean,
+    //   hasLink: Boolean,
+    //   hasPdf: Boolean,
+  }
+
+  axios.post('/stacks/new', body)
+    .then(response => {
+      console.log('post successful and the response is: ', response.data);
+    })
+}
 
 //Login Display Toggle
 loginDisplay.addEventListener("click", function (e) {
@@ -271,6 +333,11 @@ spotifySearchDomEl.addEventListener("click", function (e) {
 youtubeBtn.addEventListener("click", function (e) {
   e.preventDefault()
   youtubeLinkToEmbed()
+})
+
+saveStackBtn.addEventListener("click", function (e) {
+  e.preventDefault()
+  sendInfoToDB()
 })
 
 

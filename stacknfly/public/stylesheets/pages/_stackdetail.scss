@@ -4,7 +4,8 @@
   display:flex;
   flex-direction:column;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
+  padding-top: 0rem;
 }
 
 .header-detail{
@@ -50,27 +51,34 @@
 .body-detail{
   display:flex;
   flex-direction: column;
-  justify-content:space-between;
+ justify-content: center;
   align-items: center;
   color: black;
   width: 100%;
+  max-width: 1366px;
 }
 .steps-detail{
   padding: 2rem 0;
   width: 80%;
   position:relative;
+  display:flex;
+  flex-direction: column;
+  max-width: inherit;
+ 
 
 }
 .one-step{
   border-left: 0.3rem solid #222;
   position:relative;
   padding: 2rem;
+  max-width: inherit;
 }
 
 .one-step:last-child{
   border-left: 0.3rem solid #222;
   border-image-source: linear-gradient( #222, white);
   border-image-slice: 8 2;
+  max-width: inherit;
   .bar-detail{
     background-color: rgba(0,0,0,0.10);
     width: 2rem;
