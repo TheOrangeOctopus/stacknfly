@@ -33,21 +33,9 @@ router.get('/new', (req, res, next) => {
 
 //revisar si popular , la subida de imagenes y los steps que populen las sources
 router.post('/new', (req, res, next) => {
-  let Stack = new Stacks({
-    title: req.body.title,
-    description: req.body.description,
-    category: req.body.category,
-    tags: req.body.tags,
-    timeInHours: req.body.time,
-    likesCounter: 0,
-    createdBy: req.body.creator,
-    status: "pending",
-    image: req.body.img - url,
-    steps: req.body.steps,
-  })
-
-  Stacks.save(Stack)
-
+  Stacks.create(req.body).then(createdStack=> {
+    res.json({ createdStack, timestamp: new Date() });
+  });
 })
 
 router.get("/", (req, res, next) => {
